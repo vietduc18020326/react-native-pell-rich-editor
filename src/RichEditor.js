@@ -3,6 +3,7 @@ import {WebView} from 'react-native-webview';
 import {actions, messages} from './const';
 import {Keyboard, Platform, StyleSheet, TextInput, View} from 'react-native';
 import {createHTML} from './editor';
+import {onCleanHTMLHeadings} from "./utils";
 
 const PlatformIOS = Platform.OS === 'ios';
 
@@ -276,7 +277,7 @@ export default class RichTextEditor extends Component {
                     domStorageEnabled={false}
                     bounces={false}
                     javaScriptEnabled={true}
-                    source={viewHTML}
+                    source={onCleanHTMLHeadings(viewHTML)}
                     onLoad={that.init}
                 />
                 {Platform.OS === 'android' && <TextInput ref={ref => (that._input = ref)} style={styles._input} />}
