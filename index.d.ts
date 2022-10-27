@@ -96,7 +96,7 @@ export interface RichEditorProps extends WebViewProps {
      * Callback input chat
      * Android and iOS inputType are not the same
      */
-    onInput?: ({data: string, inputType: string}) => void;
+    onInput?: ({data, inputType}: {data: string; inputType: string}) => void;
 
     /**
      * Callback when the editor focus some content
@@ -309,4 +309,8 @@ export interface RichToolbarProps {
     onFormatBlockMap?: Record<string, () => void>
 }
 
-export class RichToolbar extends React.Component<RichToolbarProps> {}
+export class RichToolbar extends React.Component<RichToolbarProps> {
+    state: {
+        items: string[]
+    }
+}
