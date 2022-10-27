@@ -462,7 +462,7 @@ export default class RichTextEditor extends Component {
     }
 
     setFormatBlock(action) {
-        return that.sendAction(action, 'result');
+        return this.sendAction(action, 'result');
     }
 }
 
