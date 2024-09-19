@@ -10,6 +10,24 @@ function getContentCSS() {
         .x-todo li {list-style:none;}
         .x-todo-box {position: relative; left: -24px;}
         .x-todo-box input{position: absolute;}
+        ul .ql-indent-1 {
+            margin-left: 12px;
+        }
+        ul .ql-indent-2 {
+            margin-left: 24px;
+        }
+        ul .ql-indent-3 {
+            margin-left: 36px;
+        }
+        ul .ql-indent-4 {
+            margin-left: 48px;
+        }
+        ul .ql-indent-5 {
+            margin-left: 60px;
+        }
+        ul .ql-indent-1 {
+            margin-left: 12px;;
+        }
         ol li {
            counter-increment: decimal-counter;
            list-style-type: none;
@@ -18,47 +36,47 @@ function getContentCSS() {
         ol li::before {
             content: counter(decimal-counter, decimal) ". ";
         }
-        .ql-indent-1 {
+        ol .ql-indent-1 {
             margin-left: 0;
             counter-increment: my-counter;
             list-style-type: none;
         }
-        .ql-indent-1::before {
+        ol .ql-indent-1::before {
             content: counter(my-counter, lower-alpha) ".";
         }
-        .ql-indent-2 {
+        ol .ql-indent-2 {
             margin-left: 20px;
             counter-increment: roman-counter;
             list-style-type: none;
         }
-        .ql-indent-2::before {
+        ol .ql-indent-2::before {
           content: counter(roman-counter, lower-roman) ". "; /* Display as lowercase Roman numerals */
         }
-        .ql-indent-3 {
+        ol .ql-indent-3 {
             /*margin-left: 36px;*/
             margin-left: 40px;
             list-style-type: none;
             counter-increment: decimal-counter-1;
         }
-        .ql-indent-3::before{
+        ol .ql-indent-3::before{
             margin-left: 40px;
             content: counter(decimal-counter-1, decimal) ". ";
         }
-        .ql-indent-4{
+        ol .ql-indent-4{
             /*margin-left: 48px;*/
             margin-left: 60px;
             counter-increment: my-counter-1;
             list-style-type: none;
         }
-        .ql-indent-4::before {
+        ol .ql-indent-4::before {
             content: counter(my-counter-1, lower-alpha) ". ";
         }
-        .ql-indent-5 {
+        ol .ql-indent-5 {
             margin-left: 80px;
             list-style-type: none;
             counter-increment: roman-counter-1;
         }
-        .ql-indent-5::before {
+        ol .ql-indent-5::before {
             content: counter(roman-counter-1, lower-roman) ". ";
         }
         blockquote{border-left: 6px solid #ddd;padding: 5px 0 5px 10px;margin: 15px 0 15px 15px;}
