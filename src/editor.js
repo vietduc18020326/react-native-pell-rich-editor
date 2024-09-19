@@ -19,7 +19,7 @@ function getContentCSS() {
             content: counter(decimal-counter, decimal) ". ";
         }
         .ql-indent-1 {
-            margin-left: 0px;
+            margin-left: 0;
             counter-increment: my-counter;
             list-style-type: none;
         }
@@ -29,7 +29,7 @@ function getContentCSS() {
         .ql-indent-2 {
             margin-left: 20px;
             counter-increment: roman-counter;
-            \list-style-type: none;
+            list-style-type: none;
         }
         .ql-indent-2::before {
           content: counter(roman-counter, lower-roman) ". "; /* Display as lowercase Roman numerals */
