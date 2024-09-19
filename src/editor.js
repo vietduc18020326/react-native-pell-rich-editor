@@ -10,6 +10,57 @@ function getContentCSS() {
         .x-todo li {list-style:none;}
         .x-todo-box {position: relative; left: -24px;}
         .x-todo-box input{position: absolute;}
+        ol li {
+           counter-increment: decimal-counter;
+           list-style-type: none;
+           margin-left: -20px;
+        }
+        ol li::before {
+            content: counter(decimal-counter, decimal) ". ";
+        }
+        .ql-indent-1 {
+            margin-left: 0px;
+            counter-increment: my-counter;
+            list-style-type: none;
+        }
+        .ql-indent-1::before {
+            content: counter(my-counter, lower-alpha) ".";
+        }
+        .ql-indent-2 {
+            margin-left: 20px;
+            counter-increment: roman-counter;
+            \list-style-type: none;
+        }
+        .ql-indent-2::before {
+          content: counter(roman-counter, lower-roman) ". "; /* Display as lowercase Roman numerals */
+        }
+        .ql-indent-3 {
+            /*margin-left: 36px;*/
+            margin-left: 40px;
+            list-style-type: none;
+            counter-increment: decimal-counter-1;
+        }
+        .ql-indent-3::before{
+            margin-left: 40px;
+            content: counter(decimal-counter-1, decimal) ". ";
+        }
+        .ql-indent-4{
+            /*margin-left: 48px;*/
+            margin-left: 60px;
+            counter-increment: my-counter-1;
+            list-style-type: none;
+        }
+        .ql-indent-4::before {
+            content: counter(my-counter-1, lower-alpha) ". ";
+        }
+        .ql-indent-5 {
+            margin-left: 80px;
+            list-style-type: none;
+            counter-increment: roman-counter-1;
+        }
+        .ql-indent-5::before {
+            content: counter(roman-counter-1, lower-roman) ". ";
+        }
         blockquote{border-left: 6px solid #ddd;padding: 5px 0 5px 10px;margin: 15px 0 15px 15px;}
         hr{display: block;height: 0; border: 0;border-top: 1px solid #ccc; margin: 15px 0; padding: 0;}
         pre{padding: 10px 5px 10px 10px;margin: 15px 0;display: block;line-height: 18px;background: #F0F0F0;border-radius: 6px;font-size: 13px; font-family: 'monaco', 'Consolas', "Liberation Mono", Courier, monospace; word-break: break-all; word-wrap: break-word;overflow-x: auto;}
@@ -52,7 +103,7 @@ function createHTML(options = {}) {
         * {outline: 0px solid transparent;-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-touch-callout: none;box-sizing: border-box;}
         html, body { margin: 0; padding: 0;font-family: Arial, Helvetica, sans-serif; font-size:1em; height: 100%}
         body { overflow-y: hidden; -webkit-overflow-scrolling: touch;background-color: ${backgroundColor};caret-color: ${caretColor};}
-        .content {font-family: Arial, Helvetica, sans-serif;color: ${color}; width: 100%;${!useContainer ? 'height:100%;' : ''}-webkit-overflow-scrolling: touch;padding-left: 0;padding-right: 0;}
+        .content {font-family: Arial, Helvetica, sans-serif;color: ${color}; width: 100%;${!useContainer ? 'height:100%;' : ''}-webkit-overflow-scrolling: touch;padding-left: 0;padding-right: 0}
         .pell { height: 100%;} .pell-content { outline: 0; overflow-y: auto;padding: 10px;height: 100%;${contentCSSText}}
     </style>
     <style>
@@ -340,10 +391,12 @@ function createHTML(options = {}) {
                 }
             },
             checkboxList: {
-                state: function(){return checkboxNode(window.getSelection().anchorNode)},
+                state: function(){
+                    return checkboxNode(window.getSelection().anchorNode)},
                 result: function() {
                     if (queryCommandState('insertOrderedList')) return;
                     var pNode;
+                    
                     if (anchorNode){
                         pNode = anchorNode.parentNode;
                         if (anchorNode === editor.content) pNode = null;
@@ -362,7 +415,10 @@ function createHTML(options = {}) {
             },
             content: {
                 setDisable: function(dis){ this.blur(); editor.content.contentEditable = !dis},
-                setHtml: function(html) { editor.content.innerHTML = html; Actions.UPDATE_HEIGHT(); },
+                setHtml: function(html) { 
+                    editor.content.innerHTML = html; 
+                    Actions.UPDATE_HEIGHT();
+                    },
                 getHtml: function() { return editor.content.innerHTML; },
                 blur: function() { editor.content.blur(); },
                 focus: function() { focusCurrent(); },
@@ -397,7 +453,7 @@ function createHTML(options = {}) {
 
             init: function (){
                 if (${useContainer}){
-                    // setInterval(Actions.UPDATE_HEIGHT, 150);
+                    setInterval(Actions.UPDATE_HEIGHT, 150);
                     Actions.UPDATE_HEIGHT();
                 } else {
                     // react-native-webview There is a bug in the body and html height setting of a certain version of 100%
@@ -467,6 +523,7 @@ function createHTML(options = {}) {
             exec(defaultParagraphSeparatorString, paragraphSeparator);
 
             var actionsHandler = [];
+            
             for (var k in Actions){
                 if (typeof Actions[k] === 'object' && Actions[k].state){
                     actionsHandler[k] = Actions[k]
@@ -609,6 +666,7 @@ function createHTML(options = {}) {
                 Actions.content.focus();
                 handleSelecting(event);
             });
+            
             return {content, paragraphSeparator: paragraphSeparator};
         };
 
